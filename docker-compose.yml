@@ -1,0 +1,19 @@
+services:
+  bun-app:
+    build: 
+      context: .
+      args: 
+        NODE_ENV: development
+    tty: true
+    ports:
+      - ${HOST_PORT}:${PORT}
+    environment:
+      - HOST_PORT=${HOST_PORT}
+      - PORT=${PORT}
+      - NODE_ENV=development
+      - MY_ENV=my_environment_variable
+    stop_grace_period: 1s
+    volumes:
+      - ./:/app # named volume인지 서브디렉토리인지 확실한 구분을 위해 서브디렉토리에는 /를 붙인다.
+      - /app/node_modules
+    command: bun run dev
